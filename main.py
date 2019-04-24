@@ -88,7 +88,23 @@ def calcMetrics(wordDict, docFreq, nWordsBeforeProcessing):
         print("#" + str(i), k, ":", v)
         i += 1
 
+    #makeCSV(resultDict)
+
     return
+
+def makeCSV(dct):
+    fout = open("output.csv", 'w')
+    fout.write("term,TF,TF(Weight),DF,IDF,TF*IDF,P(Term)\n")
+    for k, v in dct.items():
+        result = k + ','
+        for value in v:
+            result += str(value) + ','
+        result += '\n'
+        fout.write(result)
+    fout.close()
+    return
+
+
 
 #helper function to return a dictionary of the 30 most frequent terms in the db
 def get30MostFrequent(wordDict):
@@ -164,6 +180,7 @@ def getStopwords():
     fStopwords = open('stopwords.txt', 'r')
     contents = fStopwords.read()
     stopList = word_tokenize(contents)
+    fStopwords.close()
     return stopList
 
 # function that will get a dictionary from the files
